@@ -1,9 +1,9 @@
 
-function SayHello(){
+/*function SayHello(){
     let current_value = document.getElementById("textarea_1") as HTMLInputElement;
     let new_value = "Hello world!!!" + "\n" + current_value.value;
     document.getElementById("textarea_1").innerHTML = new_value;
-}
+}*/
 
 function Sumar(a:number,b:number):number{
     return a + b;
@@ -59,15 +59,20 @@ let Matias:Empleado = new Empleado("Matias", 30, 12345, 50000);
 let Juan:Cliente = new Cliente("Juan", 25, 54321, 1000);
 let Pedro:Proveedor = new Proveedor("Pedro", 40, 67890, "Producto A");
 
+
+
+
 class ListenerClickPresentar implements EventListenerObject {
     handleEvent(event: Event): void {
         if (event.type === "click") {
-            alert("Nombre: " + Matias.getNombre() + "\nEdad: " + Matias.getEdad() + "\nLegajo: " + Matias.getLegajo() + "\nSueldo: " + Matias.getSueldo() + "\n" + "Nombre: " + Juan.getNombre() + "\nEdad: " + Juan.getEdad() + "\nLegajo: " + Juan.getLegajo() + "\nCompra: " + Juan.getCompra() + "\n" + "Nombre: " + Pedro.getNombre() + "\nEdad: " + Pedro.getEdad() + "\nLegajo: " + Pedro.getLegajo() + "\nProducto: " + Pedro.getProducto());
+            alert("Nombre: " + Matias.mostrarnombre() + "\nEdad: " + Matias.mostraredad() + "\nLegajo: " + Matias.mostrarlegajo() + "\nSueldo: " + Matias.mostrarsueldo() + "\n" + "Nombre: " + Juan.mostrarnombre() + "\nEdad: " + Juan.mostraredad() + "\nLegajo: " + Juan.mostrarlegajo() + "\nCompra: " + Juan.mostrarcompra() + "\n" + "Nombre: " + Pedro.mostrarnombre() + "\nEdad: " + Pedro.mostraredad() + "\nLegajo: " + Pedro.mostrarlegajo() + "\nProducto: " + Pedro.mostrarproducto());
         }
     }
 }
 
+window.addEventListener("load", () => {
 let botonpres = document.getElementById("botonpres");
-if (botonpres) {
-    botonpres.addEventListener("click", new ListenerClickPresentar());
-}
+    if (botonpres) {
+        botonpres.addEventListener("click", new ListenerClickPresentar());
+    }
+});

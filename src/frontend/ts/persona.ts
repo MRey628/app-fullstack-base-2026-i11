@@ -60,7 +60,7 @@ class Empleado extends Persona {
     }
 }
 
-class Cliente extends Persona {
+class Cliente extends Persona implements Presentar {
     private Compra: number;
 
     constructor(nombre: string, edad: number, legajo: number, Compra: number) {
@@ -74,6 +74,26 @@ class Cliente extends Persona {
 
     mostrarcompra(): number {
         return this.Compra;
+    }
+
+    mostrarnombre(): string {
+        return this.getNombre();
+    }
+
+    mostraredad(): number {
+        return this.getEdad();
+    }
+
+    mostrarlegajo(): number {
+        return this.getLegajo();
+    }
+
+    mostrarsueldo(): number {
+        return 0;
+    }
+
+    mostrarproducto(): string {
+        return "";
     }
 }
 
@@ -90,6 +110,26 @@ class Proveedor extends Persona {
     }
 
     mostrarproducto(): string {
-        return this.Producto;
+        return this.getProducto();
+    }
+
+    mostrarnombre(): string {
+        return this.getNombre();
+    }
+
+    mostraredad(): number {
+        return this.getEdad();
+    }
+
+    mostrarlegajo(): number {
+        return this.getLegajo();
+    }
+
+    mostrarsueldo(): number {
+        return 0;
+    }
+
+    mostrarcompra(): number {
+        return 0;
     }
 }
