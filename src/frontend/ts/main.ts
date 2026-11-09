@@ -55,9 +55,9 @@ alert(a+"*"+b+" = "+resultado);
 resultado = Operar(a, b, "dividir");
 alert(a+"/"+b+" = "+resultado);*/
 
-let Matias:Empleado = new Empleado("Matias", 30, 12345, 50000);
-let Juan:Cliente = new Cliente("Juan", 25, 54321, 1000);
-let Pedro:Proveedor = new Proveedor("Pedro", 40, 67890, "Producto A");
+let empleado:Empleado = new Empleado("Matias", 30, 12345, 500000);
+let cliente:Cliente = new Cliente("Juan", 25, 54321, 1000);
+let proveedor:Proveedor = new Proveedor("Pedro", 40, 67890, "Producto A");
 
 
 
@@ -65,7 +65,9 @@ let Pedro:Proveedor = new Proveedor("Pedro", 40, 67890, "Producto A");
 class ListenerClickPresentar implements EventListenerObject {
     handleEvent(event: Event): void {
         if (event.type === "click") {
-            alert("Nombre: " + Matias.mostrarnombre() + "\nEdad: " + Matias.mostraredad() + "\nLegajo: " + Matias.mostrarlegajo() + "\nSueldo: " + Matias.mostrarsueldo() + "\n" + "Nombre: " + Juan.mostrarnombre() + "\nEdad: " + Juan.mostraredad() + "\nLegajo: " + Juan.mostrarlegajo() + "\nCompra: " + Juan.mostrarcompra() + "\n" + "Nombre: " + Pedro.mostrarnombre() + "\nEdad: " + Pedro.mostraredad() + "\nLegajo: " + Pedro.mostrarlegajo() + "\nProducto: " + Pedro.mostrarproducto());
+            empleado.mostrarinformacion();
+            cliente.mostrarinformacion();
+            proveedor.mostrarinformacion();
         }
     }
 }

@@ -1,13 +1,23 @@
-interface Presentar {
-    mostrarnombre(): string;
-    mostraredad(): number;
-    mostrarlegajo(): number;
-    mostrarsueldo(): number;
-    mostrarcompra(): number;
-    mostrarproducto(): string;
+interface Display {
+    mostrarnombre(): void;
+    mostraredad(): void;
+    mostrarlegajo(): void;
+    mostrarinformacion(): void;
 }
 
-class Persona {
+interface DisplayEmpleado extends Display {
+    mostrarsueldo(): void;
+}
+
+interface DisplayCliente extends Display {
+    mostrarcompra(): void;
+}
+
+interface DisplayProveedor extends Display {
+    mostrarproducto(): void;
+}
+
+class Persona implements Display{
     private nombre: string;
     private edad: number;
     private legajo: number;
@@ -30,106 +40,81 @@ class Persona {
         return this.legajo;
     }
 
-    mostrarnombre(): string {
-        return this.nombre;
+    mostrarnombre(): void {
+        alert(this.getNombre());
     }
 
-    mostraredad(): number {
-        return this.edad;
+    mostraredad(): void {
+        alert(this.getEdad() + " años");
     }
 
-    mostrarlegajo(): number {
-        return this.legajo;
+    mostrarlegajo(): void {
+        alert(this.getLegajo());
     }
 }
 
-class Empleado extends Persona {
+class Empleado extends Persona implements DisplayEmpleado {
     private sueldo: number;
 
     constructor(nombre: string, edad: number, legajo: number, sueldo: number) {
         super(nombre, edad, legajo);
         this.sueldo = sueldo;
+        alert("Nombre: " + this.getNombre() + "\nEdad: " + this.getEdad() + " años" + "\nLegajo: " + this.getLegajo() + "\nSueldo: " + this.getSueldo() + "$");
     }
 
     public getSueldo(): number {
         return this.sueldo;
     }
 
-    mostrarsueldo(): number {
-        return this.sueldo;
+    mostrarsueldo(): void {
+        alert(this.getSueldo() + "$");
+    }
+
+    mostrarinformacion(): void {
+        alert("Nombre: " + this.getNombre() + "\nEdad: " + this.getEdad() + " años" + "\nLegajo: " + this.getLegajo() + "\nSueldo: " + this.getSueldo() + "$");
     }
 }
 
-class Cliente extends Persona implements Presentar {
+class Cliente extends Persona implements DisplayCliente {
     private Compra: number;
 
     constructor(nombre: string, edad: number, legajo: number, Compra: number) {
         super(nombre, edad, legajo);
         this.Compra = Compra;
+        alert("Nombre: " + this.getNombre() + "\nEdad: " + this.getEdad() + " años" + "\nLegajo: " + this.getLegajo() + "\nCompra: " + this.getCompra() + "$");
     }
 
     public getCompra(): number {
         return this.Compra;
     }
 
-    mostrarcompra(): number {
-        return this.Compra;
+    mostrarcompra(): void {
+        alert(this.getCompra() + "$");
     }
 
-    mostrarnombre(): string {
-        return this.getNombre();
-    }
-
-    mostraredad(): number {
-        return this.getEdad();
-    }
-
-    mostrarlegajo(): number {
-        return this.getLegajo();
-    }
-
-    mostrarsueldo(): number {
-        return 0;
-    }
-
-    mostrarproducto(): string {
-        return "";
+    mostrarinformacion(): void {
+        alert("Nombre: " + this.getNombre() + "\nEdad: " + this.getEdad() + " años" + "\nLegajo: " + this.getLegajo() + "\nCompra: " + this.getCompra() + "$");
     }
 }
 
-class Proveedor extends Persona {
+class Proveedor extends Persona implements DisplayProveedor {
     private Producto: string;
 
     constructor(nombre: string, edad: number, legajo: number, Producto: string) {
         super(nombre, edad, legajo);
         this.Producto = Producto;
+        alert("Nombre: " + this.getNombre() + "\nEdad: " + this.getEdad() + " años" + "\nLegajo: " + this.getLegajo() + "\nProducto: " + this.getProducto());
     }
 
     public getProducto(): string {
         return this.Producto;
     }
 
-    mostrarproducto(): string {
-        return this.getProducto();
+    mostrarproducto(): void {
+        alert(this.getProducto());
     }
 
-    mostrarnombre(): string {
-        return this.getNombre();
-    }
-
-    mostraredad(): number {
-        return this.getEdad();
-    }
-
-    mostrarlegajo(): number {
-        return this.getLegajo();
-    }
-
-    mostrarsueldo(): number {
-        return 0;
-    }
-
-    mostrarcompra(): number {
-        return 0;
+    mostrarinformacion(): void {
+        alert("Nombre: " + this.getNombre() + "\nEdad: " + this.getEdad() + " años" + "\nLegajo: " + this.getLegajo() + "\nProducto: " + this.getProducto());
     }
 }
