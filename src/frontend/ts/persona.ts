@@ -51,6 +51,10 @@ class Persona implements Display{
     mostrarlegajo(): void {
         alert(this.getLegajo());
     }
+
+    mostrarinformacion(): void {
+        alert("Nombre: " + this.getNombre() + "\nEdad: " + this.getEdad() + " años" + "\nLegajo: " + this.getLegajo());
+    }
 }
 
 class Empleado extends Persona implements DisplayEmpleado {
