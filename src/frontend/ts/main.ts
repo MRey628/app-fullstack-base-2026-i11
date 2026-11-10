@@ -73,36 +73,40 @@ class ListenerClickPresentar implements EventListenerObject {
 }
 
 class ListenerClickEnviar implements EventListenerObject {
+    
+    private nombre : string = "";
+    private email: string = "";
+    private password: string = "";
+    private texto_rx: string = "";
+    
     handleEvent(event: Event): void {
         if (event.type === "click" && event.target === document.getElementById("boton_enviar")) {
-            this.RecibirFormulario(event);
+            this.buscarDevices(event);
             alert("Evento capturado correctamente");
         }
     }
-    private RecibirFormulario(event: Event): void {
+    private buscarDevices(event: Event): void {
         let consulta: XMLHttpRequest = new XMLHttpRequest();
         consulta.onreadystatechange = () => {
             if (consulta.readyState == 4) {
                 if (consulta.status == 200) {
                     let nombreInput = document.getElementById("nombre") as HTMLInputElement;
                     let emailInput = document.getElementById("email") as HTMLInputElement;
-                    let passwordInput = document.getElementById("pasword") as HTMLInputElement;
+                    let passwordInput = document.getElementById("password") as HTMLInputElement;
+                    
+                    this.texto_rx = consulta.responseText;
+                    let div: HTMLElement = document.getElementById("texto_rx") as HTMLElement;
+                    div.innerHTML = this.texto_rx;
 
-                    let nombre = nombreInput.value;
-                    let email = emailInput.value;
-                    let password = passwordInput.value;
-
-                    consulta.open("POST", "http://localhost:8000/devices", true);
-                    consulta.send(JSON.stringify({ nombre: nombre, email: email, password: password }));
-                    alert("Error" + consulta.status);
                 } else {
                     alert("Error" + consulta.status);
                 }
             }
-            else {
-                alert("Error" + consulta.status);
-            }
         }
+
+        consulta.open("GET", "http://localhost:8000/devices", true);
+        //consulta.send(JSON.stringify({ nombre: this.nombre, email: this.email, password: this.password }));
+        consulta.send();
     }
 }
 
