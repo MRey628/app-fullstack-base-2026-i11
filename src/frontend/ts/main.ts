@@ -64,7 +64,7 @@ let proveedor:Proveedor = new Proveedor("Pedro", 40, 67890, "Producto A");
 
 class ListenerClickPresentar implements EventListenerObject {
     handleEvent(event: Event): void {
-        if (event.type === "click") {
+        if (event.type === "click" && event.target === document.getElementById("botonpres")) {
             empleado.mostrarinformacion();
             cliente.mostrarinformacion();
             proveedor.mostrarinformacion();
@@ -72,9 +72,47 @@ class ListenerClickPresentar implements EventListenerObject {
     }
 }
 
+class ListenerClickEnviar implements EventListenerObject {
+    handleEvent(event: Event): void {
+        if (event.type === "click" && event.target === document.getElementById("boton_enviar")) {
+            this.RecibirFormulario(event);
+            alert("Evento capturado correctamente");
+        }
+    }
+    private RecibirFormulario(event: Event): void {
+        let consulta: XMLHttpRequest = new XMLHttpRequest();
+        consulta.onreadystatechange = () => {
+            if (consulta.readyState == 4) {
+                if (consulta.status == 200) {
+                    let nombreInput = document.getElementById("nombre") as HTMLInputElement;
+                    let emailInput = document.getElementById("email") as HTMLInputElement;
+                    let passwordInput = document.getElementById("pasword") as HTMLInputElement;
+
+                    let nombre = nombreInput.value;
+                    let email = emailInput.value;
+                    let password = passwordInput.value;
+
+                    consulta.open("POST", "http://localhost:8000/devices", true);
+                    consulta.send(JSON.stringify({ nombre: nombre, email: email, password: password }));
+                    alert("Error" + consulta.status);
+                } else {
+                    alert("Error" + consulta.status);
+                }
+            }
+            else {
+                alert("Error" + consulta.status);
+            }
+        }
+    }
+}
+
 window.addEventListener("load", () => {
 let botonpres = document.getElementById("botonpres");
+let botonEnviar = document.getElementById("boton_enviar");
     if (botonpres) {
         botonpres.addEventListener("click", new ListenerClickPresentar());
+    }
+    if (botonEnviar) {
+        botonEnviar.addEventListener("click", new ListenerClickEnviar());
     }
 });
