@@ -63,7 +63,7 @@ class Empleado extends Persona implements DisplayEmpleado {
     constructor(nombre: string, edad: number, legajo: number, sueldo: number) {
         super(nombre, edad, legajo);
         this.sueldo = sueldo;
-        alert("Nombre: " + this.getNombre() + "\nEdad: " + this.getEdad() + " años" + "\nLegajo: " + this.getLegajo() + "\nSueldo: " + this.getSueldo() + "$");
+        //alert("Nombre: " + this.getNombre() + "\nEdad: " + this.getEdad() + " años" + "\nLegajo: " + this.getLegajo() + "\nSueldo: " + this.getSueldo() + "$");
     }
 
     public getSueldo(): number {
@@ -85,7 +85,7 @@ class Cliente extends Persona implements DisplayCliente {
     constructor(nombre: string, edad: number, legajo: number, Compra: number) {
         super(nombre, edad, legajo);
         this.Compra = Compra;
-        alert("Nombre: " + this.getNombre() + "\nEdad: " + this.getEdad() + " años" + "\nLegajo: " + this.getLegajo() + "\nCompra: " + this.getCompra() + "$");
+        //alert("Nombre: " + this.getNombre() + "\nEdad: " + this.getEdad() + " años" + "\nLegajo: " + this.getLegajo() + "\nCompra: " + this.getCompra() + "$");
     }
 
     public getCompra(): number {
@@ -107,7 +107,7 @@ class Proveedor extends Persona implements DisplayProveedor {
     constructor(nombre: string, edad: number, legajo: number, Producto: string) {
         super(nombre, edad, legajo);
         this.Producto = Producto;
-        alert("Nombre: " + this.getNombre() + "\nEdad: " + this.getEdad() + " años" + "\nLegajo: " + this.getLegajo() + "\nProducto: " + this.getProducto());
+        //alert("Nombre: " + this.getNombre() + "\nEdad: " + this.getEdad() + " años" + "\nLegajo: " + this.getLegajo() + "\nProducto: " + this.getProducto());
     }
 
     public getProducto(): string {

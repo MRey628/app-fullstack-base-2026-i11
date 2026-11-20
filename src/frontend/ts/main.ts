@@ -61,13 +61,12 @@ let proveedor:Proveedor = new Proveedor("Pedro", 40, 67890, "Producto A");
 
 
 
-
 class ListenerClickPresentar implements EventListenerObject {
     handleEvent(event: Event): void {
-        if (event.type === "click" && event.target === document.getElementById("botonpres")) {
-            empleado.mostrarinformacion();
+        if (event.type === "click" && event.target === document.getElementById("boton_agregar")) {
+            /*empleado.mostrarinformacion();
             cliente.mostrarinformacion();
-            proveedor.mostrarinformacion();
+            proveedor.mostrarinformacion();*/
         }
     }
 }
@@ -78,11 +77,13 @@ class ListenerClickEnviar implements EventListenerObject {
     private email: string = "";
     private password: string = "";
     private texto_rx: string = "";
+    private devices: Device[] = [];
+
     
     handleEvent(event: Event): void {
         if (event.type === "click" && event.target === document.getElementById("boton_enviar")) {
             this.buscarDevices(event);
-            alert("Evento capturado correctamente");
+            console.log("Evento capturado correctamente");
         }
     }
     private buscarDevices(event: Event): void {
@@ -90,13 +91,19 @@ class ListenerClickEnviar implements EventListenerObject {
         consulta.onreadystatechange = () => {
             if (consulta.readyState == 4) {
                 if (consulta.status == 200) {
-                    let nombreInput = document.getElementById("nombre") as HTMLInputElement;
-                    let emailInput = document.getElementById("email") as HTMLInputElement;
-                    let passwordInput = document.getElementById("password") as HTMLInputElement;
+                    let dispInput = document.getElementById("disp") as HTMLInputElement;
+                    let ubicacionInput = document.getElementById("ubicacion") as HTMLInputElement;
+                    let estadoInput = document.getElementById("estado") as HTMLInputElement;
                     
-                    this.texto_rx = consulta.responseText;
-                    let div: HTMLElement = document.getElementById("texto_rx") as HTMLElement;
-                    div.innerHTML = this.texto_rx;
+                    //this.texto_rx = consulta.responseText;
+                    let div: HTMLElement = document.getElementById("textarea_1") as HTMLElement;
+                    //div.innerHTML = this.texto_rx;
+
+                    this.devices = JSON.parse(consulta.responseText);
+
+                    for(let a of this.devices){
+                        div.innerHTML += "ID: " + a.id + " - Nombre: " + a.name + " - Descripción: " + a.description + " - Estado: " + (a.state ? "Encendido" : "Apagado") + " - Tipo: " + a.type + "\n";
+                    }
 
                 } else {
                     alert("Error" + consulta.status);
@@ -105,16 +112,43 @@ class ListenerClickEnviar implements EventListenerObject {
         }
 
         consulta.open("GET", "http://localhost:8000/devices", true);
-        //consulta.send(JSON.stringify({ nombre: this.nombre, email: this.email, password: this.password }));
         consulta.send();
+        console.log("Consulta enviada correctamente");
     }
 }
 
+class ListenerClickAgregar implements EventListenerObject {
+
+    private devices: Device[] = [];
+
+    private CrearTarjetaDevice(device: Device): void {
+        let dev_coleccion: HTMLElement = document.getElementById("dev_collection") as HTMLElement;
+        dev_coleccion.innerHTML += `<div class="card blue-grey darken-1">
+                                <div class="card-content white-text">
+                                <span class="Device 1">` + device.name + `</span>
+                                <p>` + device.description + `</p>
+                                </div>
+                                <div class="card-action">
+                                <a class="waves-effect waves-light btn">Encender</a>
+                                <a class="waves-effect waves-light btn">Apagar</a>
+                                </div>
+                            </div>`;
+    }
+
+    handleEvent(event: Event): void {
+        if (event.type === "click" && event.target === document.getElementById("boton_agregar")) {
+            this.CrearTarjetaDevice({ id: 1, name: "Dispositivo 1", description: "Descripción del dispositivo 1", state: true, type: 1 });
+            console.log("Crear tarjeta de dispositivo capturado correctamente");
+        }
+    }
+}
+
+
 window.addEventListener("load", () => {
-let botonpres = document.getElementById("botonpres");
+let boton_agregar = document.getElementById("boton_agregar");
 let botonEnviar = document.getElementById("boton_enviar");
-    if (botonpres) {
-        botonpres.addEventListener("click", new ListenerClickPresentar());
+    if (boton_agregar) {
+        boton_agregar.addEventListener("click", new ListenerClickAgregar());
     }
     if (botonEnviar) {
         botonEnviar.addEventListener("click", new ListenerClickEnviar());
